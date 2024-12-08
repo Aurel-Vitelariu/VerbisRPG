@@ -11,16 +11,20 @@ public class GameManager {
     private final Scanner scanner;
     private boolean isGameRunning;
     private int defeatedEnemies;
+    private final SaveManager saveManager;
+
 
     public GameManager() {
         this.combatSystem = new CombatSystem();
         this.scanner = new Scanner(System.in);
+        this.saveManager = new SaveManager();
     }
 
     public void startGame() {
         isGameRunning = true;
         defeatedEnemies = 0;
         System.out.println("Welcome to the VerbisRPG!");
+        saveManager.loadHighScore();
         setupGame();
 
         while (isGameRunning) {
@@ -139,6 +143,10 @@ public class GameManager {
             System.out.println("Game over.");
         }
         System.out.println("You have defeated " + defeatedEnemies + " enemies.");
+        if(defeatedEnemies > saveManager.getHighScore()){
+            System.out.println("Congratulations! You achieved a new highscore!");
+            saveManager.saveHighScore(player.getName(), defeatedEnemies);
+        }
         isGameRunning = false;
 
     }

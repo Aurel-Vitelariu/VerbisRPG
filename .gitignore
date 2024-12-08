@@ -31,3 +31,9 @@ bin/
 # IntelliJ IDEA specific
 .idea/
 *.iml
+
+# SaveFile
+savefile.json
+
+# Maven target
+target
